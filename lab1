@@ -1,0 +1,60 @@
+#include <stdio.h>
+#inclide <stdlib.h>
+#include <time.h>
+
+
+// считывание с файла
+void ReadInFile(FILE *F, int**arr, int*M, int *N)
+{
+fscanf(F,"%d %d\n",M,N);
+arr = (int**)malloc(sizeof(int*)*(*M));
+int i,j;
+for(i=0;i<(*M);i++)
+{
+arr[i] = (int*)malloc(sizeof(int)*(*N));
+for(j=0;j<(*N);j++)
+fscanf(F,"%d ",&arr[i][j]);
+fscanf(F,"\n");
+}
+for(i=0;i<*M;i++)
+{
+for(j=0;j<*N;j++)
+printf("%d ",arr[i][j]);
+printf("\n");
+}
+system("PAUSE");
+}
+void main()
+{
+FILE * F = fopen("in.txt","r");
+int **mas, M, N;
+if(F==NULL)
+{
+printf("Ошибка открытия файла"); return;
+}
+
+ReadInFile(F,mas,&M,&N);
+}
+
+
+
+// Сортировка выбором
+void selectSort(int* arr, int size)
+{
+    int tmp, i, j, pos;
+    for(i = 0; i < size; ++i) // i - номер текущего шага
+    {
+        pos = i;
+        tmp = arr[i];
+        for(j = i + 1; j < size; ++j) // цикл выбора наименьшего элемента
+        {
+            if (arr[j] < tmp)
+            {
+               pos = j;
+               tmp = arr[j];
+            }
+        }
+        arr[pos] = arr[i];
+        arr[i] = tmp; // меняем местами наименьший с a[i]
+    }
+}
